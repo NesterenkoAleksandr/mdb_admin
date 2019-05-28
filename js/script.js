@@ -1,9 +1,22 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Init animation
-    new WOW().init();
+const initToggleBtn = () => {
+    const toggle = document.getElementById('toggle-button');
 
-    // Init charts
-    // Main chart
+    toggle.addEventListener('click', () => {
+        const sidebar = document.querySelector('.sidebar-fixed');
+        const div = document.createElement('div');
+
+        div.id = 'sidenav-overlay';
+        div.addEventListener('click', () => {
+            div.parentNode.removeChild(div);
+            sidebar.classList.toggle('toggled');
+        });
+        document.body.appendChild(div);
+
+        sidebar.classList.toggle('toggled');
+    });
+}
+
+const initMainChart = () => {
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -26,24 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+}
 
-    // Pie chart
-    const ctxP = document.getElementById('pieChart').getContext('2d');
-    const pieChart = new Chart(ctxP, {
-        type: 'pie',
-        data: {
-            datasets: [{
-                data: [350, 320, 280, 100, 40],
-                backgroundColor: ['red', 'blue', 'yellow', 'orange', 'green'],
-                hoverBackgroundColor: ['green', 'orange', 'gray', 'blue', 'red']
-            }]
-        },
-        options: {
-            resposive: true
-        }
-    });
-
-    // Line chart
+const initLineChart = () => {
     const ctxL = document.getElementById('lineChart').getContext('2d');
     const lineChart = new Chart(ctxL, {
         type: 'line',
@@ -76,8 +74,26 @@ document.addEventListener("DOMContentLoaded", () => {
             resposive: true
         }
     });
+}
 
-    // Radar chart
+const initPieChart = () => {
+    const ctxP = document.getElementById('pieChart').getContext('2d');
+    const pieChart = new Chart(ctxP, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [350, 320, 280, 100, 40],
+                backgroundColor: ['red', 'blue', 'yellow', 'orange', 'green'],
+                hoverBackgroundColor: ['green', 'orange', 'gray', 'blue', 'red']
+            }]
+        },
+        options: {
+            resposive: true
+        }
+    });
+}
+
+const initRadarChart = () => {
     const ctxR = document.getElementById('radarChart').getContext('2d');
     const radarChart = new Chart(ctxR, {
         type: 'radar',
@@ -106,8 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }]
         }
     });
+}
 
-    // Doughnut chart
+const initDoughnutChart = () => {
     const ctxD = document.getElementById('doughnutChart').getContext('2d');
     const doughnutChart = new Chart(ctxD, {
         type: 'doughnut',
@@ -123,4 +140,27 @@ document.addEventListener("DOMContentLoaded", () => {
             resposive: true
         }
     });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Init animations
+    new WOW().init();
+
+    initToggleBtn();
+
+    // Init charts
+    // Main chart
+    initMainChart();
+
+    // Pie chart
+    initPieChart();
+
+    // Line chart
+    initLineChart();
+
+    // Radar chart
+    initRadarChart();
+
+    // Doughnut chart
+    initDoughnutChart();
 });
